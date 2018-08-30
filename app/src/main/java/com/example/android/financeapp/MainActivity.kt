@@ -5,14 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.example.android.financeapp.R.id.addStocks
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewDetailsItem: Button;
+    lateinit var viewDetailsItem: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         viewDetailsItem = findViewById(R.id.addStocks)
 
         viewDetailsItem.setOnClickListener{
-            val intentDetails = Intent(applicationContext, DetailsActivity::class.java)
+            val intentDetails = Intent(applicationContext, AddStocks::class.java)
             startActivity(intentDetails)
         }
     }
