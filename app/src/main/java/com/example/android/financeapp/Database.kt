@@ -1,10 +1,11 @@
+//ToDo: Get Database class functioning and get an input from the user's text edit when they press 'Submit'
 //package com.example.android.financeapp
 //
 //import android.content.ContentValues
 //import android.content.Context
 //import android.database.sqlite.SQLiteDatabase
 //import android.database.sqlite.SQLiteOpenHelper
-//
+
 //class Database : SQLiteOpenHelper(){
 //
 //    private val TAG = "DatabaseHelper"

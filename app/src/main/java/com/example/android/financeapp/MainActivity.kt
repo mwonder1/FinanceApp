@@ -1,17 +1,16 @@
 package com.example.android.financeapp
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
-import com.example.android.financeapp.R.id.addStocks
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewDetailsItem: Button
+    private lateinit var viewDetailsItem: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
