@@ -5,32 +5,27 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewDetailsItem: Button
-
+    private lateinit var settings: MenuItem
+    private lateinit var addStocks: MenuItem
+    private lateinit var navMenu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewDetailsItem = findViewById(R.id.addStocks)
-
-        viewDetailsItem.setOnClickListener{
-            val intentDetails = Intent(applicationContext, AddStocks::class.java)
-            startActivity(intentDetails)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         val inflater = menuInflater
         inflater.inflate(R.menu.main_nav, menu)
-
+        navMenu = menu
+        addStocks = menu.findItem(R.id.addStocks)
+        settings = menu.findItem(R.id.settings)
         return true
     }
 
@@ -39,9 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         val id = item.itemId
         when (id){
-            R.id.addStocks -> Toast.makeText(this@MainActivity, "You have clicked View Details", Toast.LENGTH_SHORT).show()
-            R.id.editPortfolio -> Toast.makeText(this@MainActivity, "You have clicked Edit Portfolio", Toast.LENGTH_SHORT).show()
-            R.id.settings -> Toast.makeText(this@MainActivity, "You have clicked Settings", Toast.LENGTH_SHORT).show()
+            R.id.addStocks -> startActivity(Intent(applicationContext, AddStocks::class.java))
+            R.id.settings -> Toast.makeText(this@MainActivity, "Currently, there are no settings to change. Sorry!", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
     }
