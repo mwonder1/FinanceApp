@@ -13,7 +13,6 @@ public class StocksDbHelper extends SQLiteOpenHelper {
 
     public StocksDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override
@@ -31,6 +30,7 @@ public class StocksDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + StocksContract.StockEntry.TABLE_NAME);
+        onCreate(db);
     }
 }
