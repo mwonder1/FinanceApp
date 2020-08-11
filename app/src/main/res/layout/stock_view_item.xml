@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
     <!-- ToDo: Design Layout -->
-    <TextView
-        android:id="@+id/stockViewItem"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="TextView" />
-</FrameLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="349dp"
+        android:layout_height="64dp">
+
+        <TextView
+            android:id="@+id/stockViewTicker"
+            android:layout_width="91dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/stockViewCost"
+            android:layout_width="91dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="257dp"
+            android:gravity="center"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/stockViewShares"
+            android:layout_width="91dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="128.75dp"
+            android:gravity="center"
+            android:text="TextView" />
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

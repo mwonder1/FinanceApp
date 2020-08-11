@@ -4,6 +4,8 @@ import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -16,9 +18,10 @@ import kotlinx.android.synthetic.main.holdings.*
 class Holdings : AppCompatActivity() {
 
     lateinit var mDatabase: SQLiteDatabase
-    //lateinit var mAdapter: CustomAdapter
+    lateinit var mAdapter: CustomAdapter
     lateinit var mRecyclerView: RecyclerView
     lateinit var mDbHelper: StocksDbHelper
+    lateinit var toolbar: ActionBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,32 +30,41 @@ class Holdings : AppCompatActivity() {
         mDbHelper = StocksDbHelper(this)
         mDatabase = mDbHelper.writableDatabase
 
-        mRecyclerView = findViewById(R.id.recylcerView)
+        mRecyclerView = recylcerView
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mRecyclerView.layoutManager = layoutManager
 
         mRecyclerView.setHasFixedSize(true)
 
-        val mAdapter = CustomAdapter.CustomViewHolder(applicationContext, getAllItems())
+        mAdapter = CustomAdapter(applicationContext, getAllItems())
         recylcerView.adapter = mAdapter
 
-       // displayDbInfo()
+        displayDbInfo()
+
+        toolbar = supportActionBar!!
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-    override fun onStart() {
-        super.onStart()
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_home -> startActivity(Intent(applicationContext, MainActivity::class.java))
+            R.id.navigation_holdings-> startActivity(Intent(applicationContext, Holdings::class.java))
+            R.id.navigation_add_stocks -> startActivity(Intent(applicationContext, AddStocks::class.java))
+        }
+        false
     }
 
-//    fun displayDbInfo(){
-//        val mDbHelper = StocksDbHelper(this)
-//        val db = mDbHelper.readableDatabase
-//
-//        val cursor: Cursor = db.rawQuery("SELECT * FROM ${StocksContract.StockEntry.TABLE_NAME} WHERE ticker = NVDA", null)
-//
-//        cursor.close()
-//    }
 
-    fun getAllItems() : Cursor{
+    private fun displayDbInfo(){
+        val mDbHelper = StocksDbHelper(this)
+        val db = mDbHelper.readableDatabase
+
+        val cursor: Cursor = db.rawQuery("SELECT * FROM ${StocksContract.StockEntry.TABLE_NAME}", null)
+        cursor.close()
+    }
+
+    private fun getAllItems() : Cursor{
         val query = mDatabase.query(
                 StocksContract.StockEntry.TABLE_NAME,
                 null,
@@ -61,14 +73,8 @@ class Holdings : AppCompatActivity() {
                 null,
                 null,
                 StocksContract.StockEntry.COLUMN_COST + " DESC"
-        );
+        )
         return query
 
-    }
-
-    fun btn(v: View){
-
-        if (v.id == R.id.fab )
-            startActivity(Intent(applicationContext, AddStocks::class.java))
     }
 }
